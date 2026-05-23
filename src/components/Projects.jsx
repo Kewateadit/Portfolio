@@ -61,15 +61,6 @@ export default function Projects() {
               transition={{ duration: 1.0, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="glass-card group overflow-hidden flex flex-col h-full border-transparent group-hover:border-accent-cyan/30"
             >
-              {/* Project Image Placeholder */}
-              <div className="h-56 relative overflow-hidden flex items-center justify-center border-b border-white/40">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-100 group-hover:scale-105 transition-transform duration-700 ease-out z-0"></div>
-                <div className="absolute inset-0 bg-accent-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                <div className="text-text-secondary/50 font-medium font-heading tracking-wide relative z-20">
-                  Project Image
-                  {/* Replace with actual image later: <img src={project.image} alt={project.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out absolute inset-0 z-0" /> */}
-                </div>
-              </div>
 
               {/* Project Content */}
               <div className="p-8 flex flex-col flex-grow">
@@ -93,10 +84,7 @@ export default function Projects() {
                     <FaGithub size={18} />
                     Code
                   </a>
-                  <a href={project.demo} className="flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-accent-cyan transition-colors">
-                    <ExternalLink size={18} />
-                    Live Demo
-                  </a>
+
                 </div>
               </div>
             </motion.div>
