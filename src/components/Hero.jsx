@@ -45,39 +45,7 @@ export default function Hero() {
               <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
             </a>
             
-            <div className="relative">
-              <button 
-                onClick={() => setIsResumeOpen(!isResumeOpen)}
-                onBlur={() => setTimeout(() => setIsResumeOpen(false), 200)}
-                className="group flex items-center gap-2 bg-white text-text-primary border border-gray-200 px-6 py-3 rounded-full font-medium transition-all hover:border-gray-300 hover:bg-gray-50"
-              >
-                <Download size={18} className="text-text-secondary group-hover:text-text-primary" />
-                Download Resume
-              </button>
-              
-              <AnimatePresence>
-                {isResumeOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-100 rounded-2xl shadow-xl overflow-hidden z-50"
-                  >
-                    {resumes.map((resume) => (
-                      <a
-                        key={resume.name}
-                        href={resume.path}
-                        download
-                        className="block px-4 py-3 text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-gray-50 transition-colors"
-                      >
-                        {resume.name}
-                      </a>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+
           </div>
 
           <div className="flex items-center gap-4 mt-8">
