@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -13,6 +13,15 @@ const navLinks = [
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState('');
   const [scrolled, setScrolled] = useState(false);
+  const [isNavResumeOpen, setIsNavResumeOpen] = useState(false);
+
+  const resumes = [
+    { name: 'GenAI Resume', path: '/Rezume__5_ genAI.pdf' },
+    { name: 'Quickheal Resume', path: '/Rezume__5_ quickheal.pdf' },
+    { name: 'MeThree1 Resume', path: '/methree1.pdf' },
+    { name: 'MThree Resume', path: '/mthree.pdf' },
+    { name: 'New1 Resume', path: '/new1.pdf' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,24 +64,64 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`relative text-sm font-medium transition-colors hover:text-accent-cyan ${
-                activeSection === link.href.substring(1) ? 'text-accent-cyan' : 'text-text-secondary'
-              }`}
-            >
-              {link.name}
-              {activeSection === link.href.substring(1) && (
-                <motion.div
-                  layoutId="activeNavIndicator"
-                  className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-accent-cyan"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            if (link.name === 'Resume') {
+              return (
+                <div key={link.name} className="relative">
+                  <button
+                    onClick={() => setIsNavResumeOpen(!isNavResumeOpen)}
+                    onBlur={() => setTimeout(() => setIsNavResumeOpen(false), 200)}
+                    className={`relative text-sm font-medium transition-colors hover:text-accent-cyan ${
+                      isNavResumeOpen ? 'text-accent-cyan' : 'text-text-secondary'
+                    }`}
+                  >
+                    {link.name}
+                  </button>
+                  <AnimatePresence>
+                    {isNavResumeOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-48 bg-white border border-gray-100 rounded-2xl shadow-xl overflow-hidden z-50"
+                      >
+                        {resumes.map((resume) => (
+                          <a
+                            key={resume.name}
+                            href={resume.path}
+                            download
+                            className="block px-4 py-3 text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-gray-50 transition-colors text-left"
+                          >
+                            {resume.name}
+                          </a>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            }
+
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                className={`relative text-sm font-medium transition-colors hover:text-accent-cyan ${
+                  activeSection === link.href.substring(1) ? 'text-accent-cyan' : 'text-text-secondary'
+                }`}
+              >
+                {link.name}
+                {activeSection === link.href.substring(1) && (
+                  <motion.div
+                    layoutId="activeNavIndicator"
+                    className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-accent-cyan"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </a>
+            );
+          })}
         </div>
 
         {/* Mobile menu button (placeholder) */}
